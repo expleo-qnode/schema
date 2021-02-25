@@ -1,0 +1,387 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        },
+        "generators": {
+            "type": "object",
+            "properties": {
+                "testruns": {
+                    "type": "string"
+                },
+                "configurations": {
+                    "type": "string"
+                },
+                "environments": {
+                    "type": "string"
+                },
+                "properties": {
+                    "type": "string"
+                }
+            }
+        },
+        "flows": {
+            "anyOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "configurations": {
+            "type": "array",
+            "items": [
+                {
+                    "$ref": "#/definitions/IConfiguration"
+                }
+            ],
+            "minItems": 1,
+            "additionalItems": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/IConfiguration"
+                    }
+                ]
+            }
+        },
+        "environments": {
+            "type": "array",
+            "items": [
+                {
+                    "$ref": "#/definitions/IEnvironment"
+                }
+            ],
+            "minItems": 1,
+            "additionalItems": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/IEnvironment"
+                    }
+                ]
+            }
+        },
+        "tools": {
+            "$ref": "#/definitions/ITestStrategyTools"
+        },
+        "properties": {
+            "$ref": "#/definitions/Map<string,{}>"
+        },
+        "createdOn": {
+            "description": "Enables basic storage and retrieval of dates and times.",
+            "type": "string",
+            "format": "date-time"
+        },
+        "createdBy": {
+            "type": "string"
+        },
+        "updatedOn": {
+            "description": "Enables basic storage and retrieval of dates and times.",
+            "type": "string",
+            "format": "date-time"
+        },
+        "updatedBy": {
+            "type": "string"
+        },
+        "_id": {
+            "type": "string"
+        },
+        "_model": {
+            "type": "string"
+        },
+        "itemType": {
+            "$ref": "#/definitions/TestAssetType"
+        }
+    },
+    "required": [
+        "itemType"
+    ],
+    "definitions": {
+        "IConfiguration": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "requiredCapabilities": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ICapability"
+                            }
+                        },
+                        {
+                            "type": "object",
+                            "additionalProperties": {}
+                        }
+                    ]
+                },
+                "properties": {
+                    "$ref": "#/definitions/Map<string,{}>"
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "properties"
+            ]
+        },
+        "ICapability": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "value": {},
+                "enabled": {
+                    "type": "boolean"
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "key",
+                "value"
+            ]
+        },
+        "Map<string,{}>": {
+            "type": "object",
+            "properties": {
+                "size": {
+                    "type": "number"
+                },
+                "__@toStringTag": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "__@toStringTag",
+                "size"
+            ]
+        },
+        "IEnvironment": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "system": {
+                    "type": "boolean"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "nodes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/INode"
+                    }
+                },
+                "createdOn": {
+                    "description": "Enables basic storage and retrieval of dates and times.",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdBy": {
+                    "type": "string"
+                },
+                "updatedOn": {
+                    "description": "Enables basic storage and retrieval of dates and times.",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updatedBy": {
+                    "type": "string"
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "description",
+                "displayName",
+                "enabled",
+                "name",
+                "nodes",
+                "system",
+                "type"
+            ]
+        },
+        "INode": {
+            "type": "object",
+            "properties": {
+                "nid": {
+                    "type": "string"
+                },
+                "nodeType": {
+                    "$ref": "#/definitions/NodeType"
+                },
+                "hostType": {
+                    "$ref": "#/definitions/HostType"
+                },
+                "fqdn": {
+                    "type": "string"
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fqdn",
+                "hostType",
+                "nid",
+                "nodeType"
+            ]
+        },
+        "NodeType": {
+            "enum": [
+                "agent",
+                "controller",
+                "dev-agent",
+                "unknown"
+            ],
+            "type": "string"
+        },
+        "HostType": {
+            "enum": [
+                "agent",
+                "docker",
+                "kubernetes",
+                "unknown"
+            ],
+            "type": "string"
+        },
+        "ITestStrategyTools": {
+            "type": "object",
+            "properties": {
+                "default": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "app": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    }
+                },
+                "device": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    }
+                },
+                "service": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    }
+                },
+                "test": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "TestAssetType": {
+            "enum": [
+                "action",
+                "aspect",
+                "flow",
+                "locator",
+                "object",
+                "process",
+                "scope",
+                "strategy",
+                "test"
+            ],
+            "type": "string"
+        }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+}
