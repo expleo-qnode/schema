@@ -24,12 +24,10 @@
         },
         "hid": {
             "type": "string"
-        },
-        "_id": {
-            "type": "string"
         }
     },
     "required": [
+        "id",
         "itemType"
     ],
     "definitions": {

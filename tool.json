@@ -33,16 +33,7 @@
                 }
             ],
             "minItems": 1,
-            "additionalItems": {
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "enum": [
-                            "all"
-                        ]
-                    }
-                ]
-            }
+            "maxItems": 1
         },
         "author": {
             "type": "string"
@@ -64,22 +55,7 @@
                 }
             ],
             "minItems": 2,
-            "additionalItems": {
-                "anyOf": [
-                    {
-                        "type": "string",
-                        "enum": [
-                            "agent"
-                        ]
-                    },
-                    {
-                        "type": "string",
-                        "enum": [
-                            "controller"
-                        ]
-                    }
-                ]
-            }
+            "maxItems": 2
         },
         "demands": {
             "type": "array",

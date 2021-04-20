@@ -20,7 +20,6 @@
             "$ref": "#/definitions/IConfiguration"
         },
         "createdAt": {
-            "description": "Enables basic storage and retrieval of dates and times.",
             "type": "string",
             "format": "date-time"
         },
@@ -92,96 +91,10 @@
                     "description": "Test items",
                     "type": "array",
                     "items": {
-                        "anyOf": [
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestScope"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "scope"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestProcess"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "process"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestFlow"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "flow"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestAction"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "action"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
+                        "$ref": "#/definitions/TestItemType"
                     }
                 },
                 "createdOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
@@ -189,14 +102,10 @@
                     "type": "string"
                 },
                 "updatedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedBy": {
-                    "type": "string"
-                },
-                "_id": {
                     "type": "string"
                 },
                 "_model": {
@@ -207,6 +116,7 @@
                 }
             },
             "required": [
+                "_model",
                 "id",
                 "itemType"
             ]
@@ -279,7 +189,7 @@
                 "enabled": {
                     "type": "boolean"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -287,6 +197,8 @@
                 }
             },
             "required": [
+                "_model",
+                "id",
                 "key",
                 "value"
             ]
@@ -320,92 +232,7 @@
                 "items": {
                     "type": "array",
                     "items": {
-                        "anyOf": [
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestScope"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "scope"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestProcess"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "process"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestFlow"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "flow"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestAction"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "action"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
+                        "$ref": "#/definitions/TestItemType"
                     }
                 },
                 "id": {
@@ -413,13 +240,102 @@
                 },
                 "hid": {
                     "type": "string"
-                },
-                "_id": {
-                    "type": "string"
                 }
             },
             "required": [
+                "id",
                 "itemType"
+            ]
+        },
+        "TestItemType": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/TestScopeType"
+                },
+                {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ITestProcess"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "itemType": {
+                                    "type": "string",
+                                    "enum": [
+                                        "process"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "itemType"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ITestFlow"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "itemType": {
+                                    "type": "string",
+                                    "enum": [
+                                        "flow"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "itemType"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ITestAction"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "itemType": {
+                                    "type": "string",
+                                    "enum": [
+                                        "action"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "itemType"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "TestScopeType": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/ITestScope"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "itemType": {
+                            "type": "string",
+                            "enum": [
+                                "scope"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "itemType"
+                    ]
+                }
             ]
         },
         "ITestProcess": {
@@ -448,12 +364,10 @@
                 },
                 "hid": {
                     "type": "string"
-                },
-                "_id": {
-                    "type": "string"
                 }
             },
             "required": [
+                "id",
                 "itemType"
             ]
         },
@@ -499,92 +413,7 @@
                 "items": {
                     "type": "array",
                     "items": {
-                        "anyOf": [
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestScope"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "scope"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestProcess"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "process"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestFlow"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "flow"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/definitions/ITestAction"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "itemType": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "action"
-                                                ]
-                                            }
-                                        },
-                                        "required": [
-                                            "itemType"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
+                        "$ref": "#/definitions/TestItemType"
                     }
                 },
                 "condition": {
@@ -595,12 +424,10 @@
                 },
                 "hid": {
                     "type": "string"
-                },
-                "_id": {
-                    "type": "string"
                 }
             },
             "required": [
+                "id",
                 "itemType"
             ]
         },
@@ -645,13 +472,11 @@
                 },
                 "hid": {
                     "type": "string"
-                },
-                "_id": {
-                    "type": "string"
                 }
             },
             "required": [
                 "action",
+                "id",
                 "itemType"
             ]
         },
@@ -713,19 +538,12 @@
                         }
                     ],
                     "minItems": 1,
-                    "additionalItems": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/IObjectVersion"
-                            }
-                        ]
-                    }
+                    "maxItems": 1
                 },
                 "desiredCapabilities": {
                     "$ref": "#/definitions/Map<string,{}>"
                 },
                 "createdOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
@@ -733,20 +551,16 @@
                     "type": "string"
                 },
                 "updatedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedBy": {
                     "type": "string"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
-                    "type": "string"
-                },
-                "id": {
                     "type": "string"
                 },
                 "itemType": {
@@ -754,7 +568,9 @@
                 }
             },
             "required": [
+                "_model",
                 "desiredCapabilities",
+                "id",
                 "itemType",
                 "name",
                 "parent",
@@ -793,7 +609,6 @@
                     "$ref": "#/definitions/IApplication"
                 },
                 "createdOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
@@ -801,20 +616,16 @@
                     "type": "string"
                 },
                 "updatedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedBy": {
                     "type": "string"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
-                    "type": "string"
-                },
-                "id": {
                     "type": "string"
                 },
                 "itemType": {
@@ -822,7 +633,9 @@
                 }
             },
             "required": [
+                "_model",
                 "application",
+                "id",
                 "itemType",
                 "name",
                 "type"
@@ -845,38 +658,21 @@
                 },
                 "versions": {
                     "type": "array",
-                    "items": [
-                        {
-                            "$ref": "#/definitions/IVersion"
-                        }
-                    ],
-                    "minItems": 1,
-                    "additionalItems": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/IVersion"
-                            }
-                        ]
+                    "items": {
+                        "$ref": "#/definitions/IVersion"
                     }
                 },
                 "aspects": {
                     "type": "array",
-                    "items": [
-                        {
-                            "$ref": "#/definitions/IAspect"
-                        }
-                    ],
-                    "minItems": 1,
-                    "additionalItems": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/IAspect"
-                            }
-                        ]
+                    "items": {
+                        "$ref": "#/definitions/IAspect"
                     }
                 },
                 "properties": {
-                    "$ref": "#/definitions/Map<string,{}>"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IProperty"
+                    }
                 },
                 "vcs": {
                     "$ref": "#/definitions/IVersionControlSystem"
@@ -891,7 +687,6 @@
                     ]
                 },
                 "createdOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
@@ -899,20 +694,16 @@
                     "type": "string"
                 },
                 "updatedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedBy": {
                     "type": "string"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
-                    "type": "string"
-                },
-                "id": {
                     "type": "string"
                 },
                 "hid": {
@@ -923,8 +714,9 @@
                 }
             },
             "required": [
+                "_model",
                 "aspects",
-                "description",
+                "id",
                 "itemType",
                 "name",
                 "properties",
@@ -949,39 +741,53 @@
                 "name": {
                     "type": "string"
                 },
-                "releasedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "application": {
-                    "$ref": "#/definitions/IApplication"
-                },
-                "branch": {
-                    "type": "boolean"
-                },
-                "tag": {
-                    "type": "boolean"
+                "type": {
+                    "enum": [
+                        "branch",
+                        "tag"
+                    ],
+                    "type": "string"
                 },
                 "head": {
                     "type": "boolean"
                 },
+                "commit": {},
                 "master": {
                     "type": "boolean"
                 },
-                "develop": {
-                    "type": "boolean"
-                },
-                "checkedout": {
-                    "type": "boolean"
-                },
-                "branched": {
-                    "type": "boolean"
-                },
-                "branchedName": {
+                "id": {
                     "type": "string"
                 },
-                "_id": {
+                "ref": {
+                    "type": "string"
+                },
+                "application": {
+                    "$ref": "#/definitions/IApplication"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_model",
+                "application",
+                "commit",
+                "head",
+                "id",
+                "master",
+                "name",
+                "ref",
+                "type"
+            ]
+        },
+        "IProperty": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "value": {},
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -989,16 +795,10 @@
                 }
             },
             "required": [
-                "application",
-                "branch",
-                "branched",
-                "branchedName",
-                "checkedout",
-                "develop",
-                "head",
-                "master",
+                "_model",
+                "id",
                 "name",
-                "tag"
+                "value"
             ]
         },
         "IVersionControlSystem": {
@@ -1010,7 +810,7 @@
                 "properties": {
                     "$ref": "#/definitions/Map<string,{}>"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -1018,6 +818,8 @@
                 }
             },
             "required": [
+                "_model",
+                "id",
                 "properties",
                 "type"
             ]
@@ -1039,7 +841,7 @@
         "ITestTarget": {
             "type": "object",
             "properties": {
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "targetType": {
@@ -1052,6 +854,7 @@
                 }
             },
             "required": [
+                "id",
                 "targetType"
             ]
         },
@@ -1072,13 +875,7 @@
                         }
                     ],
                     "minItems": 1,
-                    "additionalItems": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/IObjectLocator"
-                            }
-                        ]
-                    }
+                    "maxItems": 1
                 },
                 "capabilities": {
                     "type": "array",
@@ -1088,15 +885,9 @@
                         }
                     ],
                     "minItems": 1,
-                    "additionalItems": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/ICapability"
-                            }
-                        ]
-                    }
+                    "maxItems": 1
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -1104,7 +895,9 @@
                 }
             },
             "required": [
+                "_model",
                 "capabilities",
+                "id",
                 "locators",
                 "object",
                 "version"
@@ -1127,7 +920,6 @@
                     "$ref": "#/definitions/Map<string,{}>"
                 },
                 "createdOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
@@ -1135,20 +927,16 @@
                     "type": "string"
                 },
                 "updatedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedBy": {
                     "type": "string"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
-                    "type": "string"
-                },
-                "id": {
                     "type": "string"
                 },
                 "itemType": {
@@ -1156,9 +944,11 @@
                 }
             },
             "required": [
+                "_model",
                 "capabilities",
                 "data",
                 "default",
+                "id",
                 "itemType",
                 "object",
                 "type"
@@ -1273,13 +1063,7 @@
                         }
                     ],
                     "minItems": 1,
-                    "additionalItems": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/IConfiguration"
-                            }
-                        ]
-                    }
+                    "maxItems": 1
                 },
                 "environments": {
                     "type": "array",
@@ -1289,13 +1073,7 @@
                         }
                     ],
                     "minItems": 1,
-                    "additionalItems": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/IEnvironment"
-                            }
-                        ]
-                    }
+                    "maxItems": 1
                 },
                 "tools": {
                     "$ref": "#/definitions/ITestStrategyTools"
@@ -1304,7 +1082,6 @@
                     "$ref": "#/definitions/Map<string,{}>"
                 },
                 "createdOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
@@ -1312,14 +1089,10 @@
                     "type": "string"
                 },
                 "updatedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedBy": {
-                    "type": "string"
-                },
-                "_id": {
                     "type": "string"
                 },
                 "_model": {
@@ -1330,6 +1103,8 @@
                 }
             },
             "required": [
+                "_model",
+                "id",
                 "itemType"
             ]
         },
@@ -1359,7 +1134,7 @@
                 "properties": {
                     "$ref": "#/definitions/Map<string,{}>"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -1367,6 +1142,8 @@
                 }
             },
             "required": [
+                "_model",
+                "id",
                 "name",
                 "properties"
             ]
@@ -1399,7 +1176,6 @@
                     }
                 },
                 "createdOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
@@ -1407,14 +1183,13 @@
                     "type": "string"
                 },
                 "updatedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedBy": {
                     "type": "string"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -1422,9 +1197,11 @@
                 }
             },
             "required": [
+                "_model",
                 "description",
                 "displayName",
                 "enabled",
+                "id",
                 "name",
                 "nodes",
                 "system",
@@ -1434,9 +1211,6 @@
         "INode": {
             "type": "object",
             "properties": {
-                "nid": {
-                    "type": "string"
-                },
                 "nodeType": {
                     "$ref": "#/definitions/NodeType"
                 },
@@ -1446,7 +1220,7 @@
                 "fqdn": {
                     "type": "string"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -1454,9 +1228,10 @@
                 }
             },
             "required": [
+                "_model",
                 "fqdn",
                 "hostType",
-                "nid",
+                "id",
                 "nodeType"
             ]
         },

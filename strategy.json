@@ -48,13 +48,7 @@
                 }
             ],
             "minItems": 1,
-            "additionalItems": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/IConfiguration"
-                    }
-                ]
-            }
+            "maxItems": 1
         },
         "environments": {
             "type": "array",
@@ -64,13 +58,7 @@
                 }
             ],
             "minItems": 1,
-            "additionalItems": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/IEnvironment"
-                    }
-                ]
-            }
+            "maxItems": 1
         },
         "tools": {
             "$ref": "#/definitions/ITestStrategyTools"
@@ -79,7 +67,6 @@
             "$ref": "#/definitions/Map<string,{}>"
         },
         "createdOn": {
-            "description": "Enables basic storage and retrieval of dates and times.",
             "type": "string",
             "format": "date-time"
         },
@@ -87,14 +74,10 @@
             "type": "string"
         },
         "updatedOn": {
-            "description": "Enables basic storage and retrieval of dates and times.",
             "type": "string",
             "format": "date-time"
         },
         "updatedBy": {
-            "type": "string"
-        },
-        "_id": {
             "type": "string"
         },
         "_model": {
@@ -105,6 +88,8 @@
         }
     },
     "required": [
+        "_model",
+        "id",
         "itemType"
     ],
     "definitions": {
@@ -134,7 +119,7 @@
                 "properties": {
                     "$ref": "#/definitions/Map<string,{}>"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -142,6 +127,8 @@
                 }
             },
             "required": [
+                "_model",
+                "id",
                 "name",
                 "properties"
             ]
@@ -159,7 +146,7 @@
                 "enabled": {
                     "type": "boolean"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -167,6 +154,8 @@
                 }
             },
             "required": [
+                "_model",
+                "id",
                 "key",
                 "value"
             ]
@@ -214,7 +203,6 @@
                     }
                 },
                 "createdOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
@@ -222,14 +210,13 @@
                     "type": "string"
                 },
                 "updatedOn": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
                     "type": "string",
                     "format": "date-time"
                 },
                 "updatedBy": {
                     "type": "string"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -237,9 +224,11 @@
                 }
             },
             "required": [
+                "_model",
                 "description",
                 "displayName",
                 "enabled",
+                "id",
                 "name",
                 "nodes",
                 "system",
@@ -249,9 +238,6 @@
         "INode": {
             "type": "object",
             "properties": {
-                "nid": {
-                    "type": "string"
-                },
                 "nodeType": {
                     "$ref": "#/definitions/NodeType"
                 },
@@ -261,7 +247,7 @@
                 "fqdn": {
                     "type": "string"
                 },
-                "_id": {
+                "id": {
                     "type": "string"
                 },
                 "_model": {
@@ -269,9 +255,10 @@
                 }
             },
             "required": [
+                "_model",
                 "fqdn",
                 "hostType",
-                "nid",
+                "id",
                 "nodeType"
             ]
         },
