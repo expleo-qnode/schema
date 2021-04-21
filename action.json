@@ -9,8 +9,8 @@
         },
         "type": {
             "enum": [
-                "Action",
-                "ToolAction"
+                "action",
+                "tool-action"
             ],
             "type": "string"
         },
