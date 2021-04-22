@@ -41,23 +41,14 @@
         },
         "runsOn": {
             "description": "Or specify a JSON spec:",
-            "items": [
-                {
-                    "type": "string",
-                    "enum": [
-                        "agent"
-                    ]
-                },
-                {
-                    "type": "string",
-                    "enum": [
-                        "controller"
-                    ]
-                }
-            ],
-            "type": "array",
-            "minItems": 2,
-            "maxItems": 2
+            "items": {
+                "type": "string",
+                "enum": [
+                    "agent",
+                    "controller"
+                ]
+            },
+            "type": "array"
         },
         "runType": {
             "enum": [
