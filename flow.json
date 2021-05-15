@@ -1,1 +1,799 @@
-null
+{
+    "$ref": "#/definitions/ITestFlow",
+    "definitions": {
+        "ITestScope": {
+            "type": "object",
+            "properties": {
+                "itemType": {
+                    "type": "string",
+                    "enum": [
+                        "scope"
+                    ]
+                },
+                "description": {
+                    "type": "string"
+                },
+                "requiredCapabilities": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ICapability"
+                            }
+                        },
+                        {
+                            "type": "object",
+                            "additionalProperties": {}
+                        }
+                    ]
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TestItemType"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "hid": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "itemType"
+            ]
+        },
+        "ICapability": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "value": {},
+                "enabled": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_model",
+                "id",
+                "key",
+                "value"
+            ]
+        },
+        "TestItemType": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/TestScopeType"
+                },
+                {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ITestProcess"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "itemType": {
+                                    "type": "string",
+                                    "enum": [
+                                        "process"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "itemType"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ITestFlow"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "itemType": {
+                                    "type": "string",
+                                    "enum": [
+                                        "flow"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "itemType"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ITestAction"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "itemType": {
+                                    "type": "string",
+                                    "enum": [
+                                        "action"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "itemType"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "TestScopeType": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/ITestScope"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "itemType": {
+                            "type": "string",
+                            "enum": [
+                                "scope"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "itemType"
+                    ]
+                }
+            ]
+        },
+        "ITestProcess": {
+            "type": "object",
+            "properties": {
+                "itemType": {
+                    "type": "string",
+                    "enum": [
+                        "process"
+                    ]
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "flows": {
+                    "$ref": "#/definitions/Map<string,TestFlowType>",
+                    "default": {
+                        "default": {}
+                    }
+                },
+                "hid": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "itemType"
+            ]
+        },
+        "Map<string,TestFlowType>": {
+            "type": "object",
+            "properties": {
+                "size": {
+                    "type": "number"
+                },
+                "__@toStringTag": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "__@toStringTag",
+                "size"
+            ]
+        },
+        "ITestFlow": {
+            "type": "object",
+            "properties": {
+                "itemType": {
+                    "type": "string",
+                    "enum": [
+                        "flow"
+                    ]
+                },
+                "type": {
+                    "enum": [
+                        "alternative",
+                        "conditional",
+                        "default",
+                        "extension"
+                    ],
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TestItemType"
+                    }
+                },
+                "condition": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "hid": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "itemType"
+            ]
+        },
+        "ITestAction": {
+            "type": "object",
+            "properties": {
+                "itemType": {
+                    "type": "string",
+                    "enum": [
+                        "action"
+                    ]
+                },
+                "id": {
+                    "type": "string"
+                },
+                "action": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPackage"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "tool": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IPackage"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "description": {
+                    "type": "string"
+                },
+                "input": {},
+                "object": {
+                    "$ref": "#/definitions/IObject"
+                },
+                "hid": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "action",
+                "id",
+                "itemType"
+            ]
+        },
+        "IPackage": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "major": {
+                    "type": "number"
+                },
+                "minor": {
+                    "type": "number"
+                },
+                "patch": {
+                    "type": "number"
+                },
+                "scope": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "name",
+                "scope",
+                "version"
+            ]
+        },
+        "IObject": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "parent": {
+                    "$ref": "#/definitions/IAspect"
+                },
+                "target": {
+                    "$ref": "#/definitions/ITestTarget"
+                },
+                "versions": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "$ref": "#/definitions/IObjectVersion"
+                        }
+                    ],
+                    "minItems": 1,
+                    "maxItems": 1
+                },
+                "desiredCapabilities": {
+                    "$ref": "#/definitions/Map<string,{}>"
+                },
+                "createdOn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdBy": {
+                    "type": "string"
+                },
+                "updatedOn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updatedBy": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                },
+                "itemType": {
+                    "$ref": "#/definitions/TestAssetType"
+                }
+            },
+            "required": [
+                "_model",
+                "desiredCapabilities",
+                "id",
+                "itemType",
+                "name",
+                "parent",
+                "type",
+                "versions"
+            ]
+        },
+        "IAspect": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "parent": {
+                    "$ref": "#/definitions/IAspect"
+                },
+                "objects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IObject"
+                    }
+                },
+                "aspects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IAspect"
+                    }
+                },
+                "application": {
+                    "$ref": "#/definitions/IApplication"
+                },
+                "createdOn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdBy": {
+                    "type": "string"
+                },
+                "updatedOn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updatedBy": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                },
+                "itemType": {
+                    "$ref": "#/definitions/TestAssetType"
+                }
+            },
+            "required": [
+                "_model",
+                "application",
+                "id",
+                "itemType",
+                "name",
+                "type"
+            ]
+        },
+        "IApplication": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "state": {
+                    "$ref": "#/definitions/ApplicationState"
+                },
+                "versions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IVersion"
+                    }
+                },
+                "aspects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IAspect"
+                    }
+                },
+                "properties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/IProperty"
+                    }
+                },
+                "vcs": {
+                    "$ref": "#/definitions/IVersionControlSystem"
+                },
+                "repoUrl": {
+                    "type": "string"
+                },
+                "targetType": {
+                    "type": "string",
+                    "enum": [
+                        "application"
+                    ]
+                },
+                "createdOn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdBy": {
+                    "type": "string"
+                },
+                "updatedOn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updatedBy": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                },
+                "hid": {
+                    "type": "string"
+                },
+                "itemType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_model",
+                "aspects",
+                "id",
+                "itemType",
+                "name",
+                "properties",
+                "repoUrl",
+                "state",
+                "targetType",
+                "type",
+                "versions"
+            ]
+        },
+        "ApplicationState": {
+            "enum": [
+                0,
+                1,
+                2
+            ],
+            "type": "number"
+        },
+        "IVersion": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "branch",
+                        "tag"
+                    ],
+                    "type": "string"
+                },
+                "head": {
+                    "type": "boolean"
+                },
+                "commit": {},
+                "master": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "ref": {
+                    "type": "string"
+                },
+                "application": {
+                    "$ref": "#/definitions/IApplication"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_model",
+                "application",
+                "commit",
+                "head",
+                "id",
+                "master",
+                "name",
+                "ref",
+                "type"
+            ]
+        },
+        "IProperty": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "value": {},
+                "id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_model",
+                "id",
+                "name",
+                "value"
+            ]
+        },
+        "IVersionControlSystem": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "properties": {
+                    "$ref": "#/definitions/Map<string,{}>"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_model",
+                "id",
+                "properties",
+                "type"
+            ]
+        },
+        "Map<string,{}>": {
+            "type": "object",
+            "properties": {
+                "size": {
+                    "type": "number"
+                },
+                "__@toStringTag": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "__@toStringTag",
+                "size"
+            ]
+        },
+        "TestAssetType": {
+            "enum": [
+                "action",
+                "aspect",
+                "flow",
+                "locator",
+                "object",
+                "process",
+                "scope",
+                "strategy",
+                "test"
+            ],
+            "type": "string"
+        },
+        "ITestTarget": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "targetType": {
+                    "enum": [
+                        "application",
+                        "device",
+                        "service"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "targetType"
+            ]
+        },
+        "IObjectVersion": {
+            "type": "object",
+            "properties": {
+                "object": {
+                    "$ref": "#/definitions/IObject"
+                },
+                "version": {
+                    "$ref": "#/definitions/IVersion"
+                },
+                "locators": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "$ref": "#/definitions/IObjectLocator"
+                        }
+                    ],
+                    "minItems": 1,
+                    "maxItems": 1
+                },
+                "capabilities": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ICapability"
+                        }
+                    ],
+                    "minItems": 1,
+                    "maxItems": 1
+                },
+                "id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_model",
+                "capabilities",
+                "id",
+                "locators",
+                "object",
+                "version"
+            ]
+        },
+        "IObjectLocator": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "default": {
+                    "type": "boolean"
+                },
+                "object": {
+                    "$ref": "#/definitions/IObject"
+                },
+                "data": {},
+                "capabilities": {
+                    "$ref": "#/definitions/Map<string,{}>"
+                },
+                "createdOn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdBy": {
+                    "type": "string"
+                },
+                "updatedOn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updatedBy": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "_model": {
+                    "type": "string"
+                },
+                "itemType": {
+                    "$ref": "#/definitions/TestAssetType"
+                }
+            },
+            "required": [
+                "_model",
+                "capabilities",
+                "data",
+                "default",
+                "id",
+                "itemType",
+                "object",
+                "type"
+            ]
+        }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+}
